@@ -27,26 +27,62 @@
 // The output of each of the functions should
 // immediately appear as well.
 
-function reversal() {
-
-}
-
-function alphabits() {
-
-}
-
-function palindrome() {
-
-}
 
 var testString = "";
-reversal(testString);
-alphabits(testString);
-palindrome(testString);
+function reversal(str) {
+  var rev = str.split('').reverse().join('')
+  document.getElementById('reversed').textContent = rev
+}
 
-document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
-});
+// Converts letters to lower case before sort
+function alphabits(str) {
+  str = str.toLowerCase()
+  var alph = str.split('').sort().join('')
+  document.getElementById('alphabetized').textContent = alph
+}
+
+function palindrome(str) {
+  str = str.toLowerCase()
+  if(str === str.split('').reverse().join('')) {
+    document.getElementById('palindrome').textContent = "Your string is a palidrome"
+  }
+}
+
+function onClick() {
+  // Reset palindrome message
+  document.getElementById('palindrome').textContent = ""
+
+  var input = document.getElementById('string-input')
+  testString = input.value
+  manipulateString(testString)
+}
+
+function onKeypress(keyEvt) {
+  if (keyEvt.key === "Enter") {
+    onClick()
+  }
+}
+
+function manipulateString(str) {
+  if(validInput(testString) === true) {
+    document.getElementById('string-input').value = ""
+    reversal(str)
+    alphabits(str)
+    palindrome(str)
+  }
+  else {
+    alert("Please do not include numbers")
+  }
+}
+
+// Returns false if input is not valid
+function validInput(str) {
+  var re = /^[^0-9]+$/i
+  return re.test(str)
+}
+
+document.getElementById('manipulate-btn').addEventListener('click', onClick)
+document.getElementById('string-input').addEventListener('keypress', onKeypress)
 
 
 
